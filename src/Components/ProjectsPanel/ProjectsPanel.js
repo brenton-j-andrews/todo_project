@@ -40,7 +40,7 @@ const ProjectsPanel = ({
                 
                 {projects.map((project) => {
                     return (
-                        <ProjectButton onClick={setSelectedProject(project.id)}> { project.title} </ProjectButton> 
+                        <ProjectButton onClick={ () => {setSelectedProject(project.id)}}> { project.title} </ProjectButton> 
                     )
                 })}
 

@@ -15,7 +15,7 @@ const App = () => {
   // If addProject is true, TasksPanel renders the new project form. Otherwise it renders contents from selectedProject.
   const [addProjectBool, setAddProjectBool] = useState(false); 
   
-  const [selectedProject, setSelectedProject] = useState(0);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   // Toggle new project menu.
   const addProjectToggle = () => {
