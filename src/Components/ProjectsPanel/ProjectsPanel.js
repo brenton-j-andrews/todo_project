@@ -18,8 +18,13 @@ import trash from "../../Assets/trash.png";
 const ProjectsPanel = ({
     projects,
     addProjectToggle,
-    setSelectedProjectIndex,
-    selectedProjectIndex
+
+    deleteProjectToggle,
+    deleteProjectBool,
+    removeProject,
+
+    setSelectedProject,
+    selectedProject
     }) => {
 
     return (
@@ -36,18 +41,25 @@ const ProjectsPanel = ({
                 <EditButtons>
                     <EditButton onClick={addProjectToggle}> <Icon src={add} alt="add"></Icon></EditButton>
                     <EditButton> <Icon src={edit} alt="edit"></Icon> </EditButton>
-                    <EditButton> <Icon src={trash} alt="delete"></Icon> </EditButton> 
+                    <EditButton onClick={deleteProjectToggle}> <Icon src={trash} alt="delete"></Icon> </EditButton> 
                 </EditButtons>
                 
                 {projects.map((project) => {
-                    if (project.index === selectedProjectIndex) {
+                    if (project.title === selectedProject) {
                         return (
-                            <SelectedProjectButton key={project.index}> {project.title} </SelectedProjectButton>
+                            <SelectedProjectButton onClick={ () => {deleteProjectBool ? removeProject(project.title) : setSelectedProject(project.title)}}
+                            > 
+                            {project.title} 
+                            </SelectedProjectButton>
                         )
 
                     } else {
                         return (
-                            <ProjectButton onClick={ () => {setSelectedProjectIndex(project.index)}} key={project.index}> { project.title} </ProjectButton> 
+                            <ProjectButton onClick={ () => {deleteProjectBool ? removeProject(project.title) : setSelectedProject(project.title)}}
+                            > 
+                            
+                            { project.title} 
+                            </ProjectButton> 
                         )
                     }
                 })}
@@ -58,3 +70,5 @@ const ProjectsPanel = ({
 }
 
 export default ProjectsPanel;
+
+// () => {setSelectedProjectIndex(project.index)}} 

@@ -11,23 +11,44 @@ import { TasksPanel } from './Components/TasksPanel/TasksPanel';
 const App = () => {
 
   const [projects, setProjects] = useState([]);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   // If addProject is true, TasksPanel renders the new project form. Otherwise it renders contents from selectedProject.
   const [addProjectBool, setAddProjectBool] = useState(false); 
-  
-  const [selectedProjectIndex, setSelectedProjectIndex] = useState(null);
+  const [deleteProjectBool, setDeleteProjectBool] = useState(false);
+
 
   // Toggle new project menu.
   const addProjectToggle = () => {
     setAddProjectBool(!addProjectBool);
   }
 
-  // Add new project to projects state array, activated in NewProject component.
+  // Add new project to projects state array.
   const addProject = (project_object) => {
-    project_object.index = projects.length;
-    setSelectedProjectIndex(project_object.index);
-    addProjectToggle();
-    setProjects(projects.concat(project_object));
+    if (checkTitle(project_object.title)) {
+      setSelectedProject(project_object.title);
+      addProjectToggle();
+      setProjects(projects.concat(project_object));
+    } 
+  }
+
+  // Check new project input title for duplication.
+  const checkTitle = (title) => {
+    const arr = projects.filter(project => project.title === title);
+    return (arr.length === 0) ? true : false;
+  }
+
+  // Activate delete mode by pressing trash button.
+  const deleteProjectToggle = () => {
+    setDeleteProjectBool(!deleteProjectBool);
+  }
+
+
+  
+  // Remove project from projects state array.
+  const removeProject = (title) => {
+    setDeleteProjectBool(false);
+    setProjects((projects) => projects.filter(project => project.title !== title));
   }
 
   return (
@@ -41,14 +62,19 @@ const App = () => {
         <ProjectsPanel 
         projects={projects} 
         addProjectToggle={addProjectToggle} 
-        setSelectedProjectIndex={setSelectedProjectIndex}
-        selectedProjectIndex={selectedProjectIndex}
+
+        deleteProjectToggle={deleteProjectToggle}
+        deleteProjectBool={deleteProjectBool}
+        removeProject={removeProject}
+
+        setSelectedProject={setSelectedProject}
+        selectedProject={selectedProject}
         />
 
         <TasksPanel 
         addProject={addProject} 
         addProjectBool={addProjectBool} 
-        selectedProject={projects[selectedProjectIndex]}
+        selectedProject={projects[selectedProject]}
         />
 
       </div>
