@@ -15,7 +15,7 @@ const App = () => {
   // If addProject is true, TasksPanel renders the new project form. Otherwise it renders contents from selectedProject.
   const [addProjectBool, setAddProjectBool] = useState(false); 
   
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProjectIndex, setSelectedProjectIndex] = useState(null);
 
   // Toggle new project menu.
   const addProjectToggle = () => {
@@ -25,7 +25,7 @@ const App = () => {
   // Add new project to projects state array, activated in NewProject component.
   const addProject = (project_object) => {
     project_object.index = projects.length;
-    setSelectedProject(project_object.index);
+    setSelectedProjectIndex(project_object.index);
     addProjectToggle();
     setProjects(projects.concat(project_object));
   }
@@ -37,8 +37,20 @@ const App = () => {
       </header>
 
       <div className='body-wrapper'>
-        <ProjectsPanel projects={projects} addProjectToggle={addProjectToggle} setSelectedProject={setSelectedProject}/>
-        <TasksPanel addProject={addProject} addProjectBool={addProjectBool} selectedProject={selectedProject}/>
+
+        <ProjectsPanel 
+        projects={projects} 
+        addProjectToggle={addProjectToggle} 
+        setSelectedProjectIndex={setSelectedProjectIndex}
+        selectedProjectIndex={selectedProjectIndex}
+        />
+
+        <TasksPanel 
+        addProject={addProject} 
+        addProjectBool={addProjectBool} 
+        selectedProject={projects[selectedProjectIndex]}
+        />
+
       </div>
 
     </div>

@@ -8,7 +8,6 @@ export const TasksPanel = ({
     selectedProject
 }) => {
 
-    console.log(selectedProject);
     if(addProjectBool){
         return (
             <div>
@@ -18,10 +17,17 @@ export const TasksPanel = ({
         )
     }
 
+    else if (selectedProject === undefined) {
+        return (
+            <div>
+                Add a project to begin!
+            </div>
+        )
+    }
     else {
         return (
             <div>
-                We are rendering tasks from project (index) {selectedProject}
+                We are rendering tasks from project {selectedProject.title}.
             </div>
         )
     }

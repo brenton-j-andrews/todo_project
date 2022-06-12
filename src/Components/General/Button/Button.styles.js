@@ -57,3 +57,13 @@ export const ProjectButton = styled.button`
         color: black;
     }
 `
+
+// Selected project button.
+export const SelectedProjectButton = styled(ProjectButton)`
+    background-color: #282c34;
+
+    &:hover {
+        background-color: #282c34;
+        color: #fff;
+    }
+`

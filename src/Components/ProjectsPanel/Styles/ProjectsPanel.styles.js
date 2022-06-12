@@ -14,7 +14,6 @@ export const EditButtons = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    /* padding: 10px; */
 `
 
 export const Icon = styled.img`

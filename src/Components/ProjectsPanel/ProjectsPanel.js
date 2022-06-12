@@ -9,7 +9,7 @@ import {
     ProjectsListHeader 
 } from "./Styles/ProjectsPanel.styles";
 
-import { EditButton, TasksButton, ProjectButton } from "../General/Button/Button.styles";
+import { EditButton, TasksButton, ProjectButton, SelectedProjectButton } from "../General/Button/Button.styles";
 
 import add from "../../Assets/add.png";
 import edit from "../../Assets/edit.png";
@@ -18,7 +18,8 @@ import trash from "../../Assets/trash.png";
 const ProjectsPanel = ({
     projects,
     addProjectToggle,
-    setSelectedProject
+    setSelectedProjectIndex,
+    selectedProjectIndex
     }) => {
 
     return (
@@ -39,9 +40,16 @@ const ProjectsPanel = ({
                 </EditButtons>
                 
                 {projects.map((project) => {
-                    return (
-                        <ProjectButton onClick={ () => {setSelectedProject(project.id)}}> { project.title} </ProjectButton> 
-                    )
+                    if (project.index === selectedProjectIndex) {
+                        return (
+                            <SelectedProjectButton key={project.index}> {project.title} </SelectedProjectButton>
+                        )
+
+                    } else {
+                        return (
+                            <ProjectButton onClick={ () => {setSelectedProjectIndex(project.index)}} key={project.index}> { project.title} </ProjectButton> 
+                        )
+                    }
                 })}
 
             </ProjectsList>
