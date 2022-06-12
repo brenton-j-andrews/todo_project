@@ -1,13 +1,12 @@
 import styled from "styled-components";
 
 export const StyledHeader = styled.div`
-width: 100%;
-display: flex;
-align-items: center;
-justify-content: space-between;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+
+    width: 90%;
+    font-size: calc((0.1em + 1vmin) + (0.1em + 1vmax));
 `
 
-export const StyledImg = styled.img`
-width: 100px;
-height: 100px;
-`

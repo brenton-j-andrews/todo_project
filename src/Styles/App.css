@@ -1,4 +1,6 @@
 .App {
+  display: flex;
+  flex-direction: column;
   text-align: center;
 }
 
@@ -16,4 +18,20 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+/* General body styling || */
+html, 
+body,
+#root,
+.App {
+  height: 100%;
+  margin: 0;
+}
+
+
+
+.body-wrapper {
+  display: flex;
+  height: 100%;
 }

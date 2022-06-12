@@ -1,36 +1,59 @@
 import styled from "styled-components";
 
-export const StyledButton = styled.button`
+// Edit button.
+export const EditButton = styled.button`
     border: 2px solid #4caf50;
-    background-color: ${(props) => props.variant === "outline" ? "#FFF" : "#4caf50" };
-    color: ${(props) => props.variant === "outline" ? "4caf50" : "#FFF" };
-    padding: 15px 32px;
+    background-color: #4caf50;
+    padding: 8px 16px;
+    margin: 5px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     font-size: 16px;
     cursor: pointer;
     transition: 0.5s all ease-out;
 
     &:hover {
-        background-color: ${(props) => props.variant !== "outline" ? "#FFF" : "#4caf50" };
-        color: ${(props) => (props.variant !== "outline" ? "4caf50" : "#FFF")};
+        background-color: #FFF;
     }
 `
 
-// Extending an existing React component!
-export const FancyButton = styled(StyledButton)`
-background-image: linear-gradient(to right, #f6d365 0%, #fda085 100%);
-border: none;
+// Sidebar tasks button.
+export const TasksButton = styled.button`
+    border: 2px solid #4caf50;
+    background-color: #4caf50;
+    color: #FFF;
+
+    padding: 8px;
+    margin: 5px;
+    width: 250px;
+
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.5s all ease-out;
+
+    &:hover {
+        background-color: #FFF;
+        color: #4caf50;
+    }
 `
 
-export const SubmitButton = styled(StyledButton).attrs({
-    type: "submit",
-})`
-    box-shadow: 0 9px #999;
-    &:active {
-        background-color: ${(props) => props.variant !== "outline" ? "#FFF" : "#4caf50" };
-        box-shadow: 0 5px #666;
-        transform: translate(4px);
+// Project select button.
+export const ProjectButton = styled.button`
+    border: 2px solid #FD7702;;
+    background-color: #FD7702;;
+    color: #fff;
+    padding: 8px 16px;
+    margin: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.5s all ease-out;
+
+    &:hover {
+        background-color: #FFF;
+        color: black;
     }
 `
