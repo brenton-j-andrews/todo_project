@@ -45,9 +45,10 @@ const ProjectsPanel = ({
                 </EditButtons>
                 
                 {projects.map((project) => {
-                    if (project.title === selectedProject) {
+                    if (project.title === selectedProject.title) {
                         return (
-                            <SelectedProjectButton onClick={ () => {deleteProjectBool ? removeProject(project.title) : setSelectedProject(project.title)}}
+                            <SelectedProjectButton onClick={ () => {deleteProjectBool ? removeProject(project) : setSelectedProject(project)}}
+                            key={project.title}
                             > 
                             {project.title} 
                             </SelectedProjectButton>
@@ -55,7 +56,8 @@ const ProjectsPanel = ({
 
                     } else {
                         return (
-                            <ProjectButton onClick={ () => {deleteProjectBool ? removeProject(project.title) : setSelectedProject(project.title)}}
+                            <ProjectButton onClick={ () => {deleteProjectBool ? removeProject(project) : setSelectedProject(project)}}
+                            key={project.title}
                             > 
                             
                             { project.title} 

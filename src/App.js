@@ -26,10 +26,12 @@ const App = () => {
   // Add new project to projects state array.
   const addProject = (project_object) => {
     if (checkTitle(project_object.title)) {
-      setSelectedProject(project_object.title);
+      setSelectedProject(project_object);
       addProjectToggle();
       setProjects(projects.concat(project_object));
-    } 
+    } else {
+      alert("Projects must have different names.")
+    }
   }
 
   // Check new project input title for duplication.
@@ -46,9 +48,9 @@ const App = () => {
 
   
   // Remove project from projects state array.
-  const removeProject = (title) => {
+  const removeProject = (project_object) => {
     setDeleteProjectBool(false);
-    setProjects((projects) => projects.filter(project => project.title !== title));
+    setProjects((projects) => projects.filter(project => project !== project_object));
   }
 
   return (
@@ -72,9 +74,10 @@ const App = () => {
         />
 
         <TasksPanel 
+        projects={projects}
         addProject={addProject} 
         addProjectBool={addProjectBool} 
-        selectedProject={projects[selectedProject]}
+        selectedProject={selectedProject}
         />
 
       </div>
