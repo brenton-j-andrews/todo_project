@@ -1,13 +1,22 @@
 // Project Object.
+import Task from "./task";
 
 class Project {
-    constructor(title, description) {
-        this.index = null;
+    constructor(title, description, tasks, completed) {
         this.title = title;
         this.description = description;
-        this.todo = [];
-        this.completed_tasks = [];
-        this.completed = false;
+        this.tasks = tasks;
+        this.completed = completed;
+    }
+
+    addTask(title) {
+        const new_task = new Task("test task", false);
+        this.tasks.push(new_task);
+    }
+
+    removeTask(remove_task) {
+        const updated_tasks = this.tasks.filter(task => task.title !== remove_task.title);
+        this.tasks = updated_tasks;
     }
 
     getIndex() {

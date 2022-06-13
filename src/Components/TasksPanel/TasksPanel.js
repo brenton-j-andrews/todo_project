@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState} from "react";
 
 import NewProject from "./NewProject";
 
@@ -10,6 +10,13 @@ export const TasksPanel = ({
     addProjectBool,
     selectedProject
 }) => {
+
+    const [render, setRender] = useState(true);
+
+    function reRender() {
+        setRender(!render);
+    }
+    
 
     if (!addProjectBool) {
         const project = projects.find(project => project.title === selectedProject.title);
@@ -32,11 +39,18 @@ export const TasksPanel = ({
                     
                         <h3> Remaining Tasks: </h3>
 
+                        {/* <button onClick={() => {project.addTask()}}> Add Task </button>  */}
+                        
+                        <button onClick={function() { project.addTask(); reRender();}}> Add Task </button> 
+
                         {todo_tasks.map((task) => {
 
                             return (
-                                <Task> <p>{task.title}</p> <button onClick={() => {task.toggleComplete()}}> 🗸 </button> <button> 🗑️ </button>
+                                <Task> 
+                                    <p>{task.title}</p> 
+                                    <button onClick={function() {task.toggleComplete(); reRender(); }}> 🗸 </button> 
 
+                                    <button onClick={function() {project.removeTask(task); reRender(); }}> 🗑️ </button>
                                 </Task>
                             )
                         })}
@@ -46,7 +60,11 @@ export const TasksPanel = ({
                         <h3> Completed Tasks:  </h3>
                         {completed_tasks.map((task) => {
                             return (
-                                <Task> <p>{task.title}</p> <button> 🗑️ </button> </Task>
+                                <Task> 
+                                    <p>{task.title}</p> 
+                                    <button onClick={function() {task.toggleComplete(); reRender(); }}> ↑ </button>
+                                    <button onClick={function() {project.removeTask(task); reRender(); }}> 🗑️ </button> 
+                                </Task>
                             )
                         })}
                     </Tasks>
