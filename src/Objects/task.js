@@ -13,6 +13,10 @@ class Task {
     getDescription() {
         return this.description;
     }
+
+    toggleComplete() {
+        this.completed = !this.completed;
+    }
 }
 
 export default Task;

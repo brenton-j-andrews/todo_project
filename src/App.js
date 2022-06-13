@@ -88,6 +88,7 @@ const App = () => {
         selectedProject={selectedProject}
 
         previewMode={previewMode}
+        previewBool={previewBool}
         />
 
         <TasksPanel 

@@ -33,8 +33,9 @@ export const TasksPanel = ({
                         <h3> Remaining Tasks: </h3>
 
                         {todo_tasks.map((task) => {
+
                             return (
-                                <Task> <p>{task.title}</p> <button> 🗸 </button> <button> 🗑️ </button>
+                                <Task> <p>{task.title}</p> <button onClick={() => {task.toggleComplete()}}> 🗸 </button> <button> 🗑️ </button>
 
                                 </Task>
                             )

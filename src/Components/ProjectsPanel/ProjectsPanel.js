@@ -26,14 +26,16 @@ const ProjectsPanel = ({
     setSelectedProject,
     selectedProject,
 
-    previewMode
+    previewMode,
+    previewBool
     }) => {
+
 
     return (
         <Panel>
             
             <TasksList>
-                <TasksButton onClick={() => {previewMode()}}> Show Preview Data </TasksButton>
+                <TasksButton onClick={() => {previewMode()}}> {previewBool ? "Hide Sample Data" : "Show Sample Data"} </TasksButton>
                 <TasksButton> Show All Tasks </TasksButton>
                 <TasksButton> Today's Tasks </TasksButton>
                 <TasksButton> This Week's Tasks </TasksButton>
