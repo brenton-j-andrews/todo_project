@@ -45,7 +45,7 @@ const ProjectsPanel = ({
                 </EditButtons>
                 
                 {projects.map((project) => {
-                    if (project.title === selectedProject.title) {
+                    if (project === selectedProject) {
                         return (
                             <SelectedProjectButton onClick={ () => {deleteProjectBool ? removeProject(project) : setSelectedProject(project)}}
                             key={project.title}

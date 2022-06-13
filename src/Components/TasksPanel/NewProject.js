@@ -6,7 +6,7 @@ class NewProject extends React.Component {
         super();
         this.state = {
             title: "",
-            // description: "",
+            description: "",
             // tasks: [],
             // completed: false
         }
@@ -23,7 +23,8 @@ class NewProject extends React.Component {
 
     onSubmit() {
         let title = this.state.title;
-        const project_object = new Project(title);
+        let description = this.state.description;
+        const project_object = new Project(title, description);
         this.props.addProject(project_object);
     }
 
@@ -34,7 +35,7 @@ class NewProject extends React.Component {
                 <form onChange={this.handleChange}>
                     <label> Project Name: <input type="text" name="title" /> </label>
 
-                    {/* <label> Project Description: <textarea /> </label> */}
+                    <label> Project Description: <textarea name="description" />   </label>
 
                     <input type="button" onClick={this.onSubmit} value="Create Project"></input>
                 </form>

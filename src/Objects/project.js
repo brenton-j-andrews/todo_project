@@ -1,10 +1,10 @@
 // Project Object.
 
 class Project {
-    constructor(title) {
+    constructor(title, description) {
         this.index = null;
         this.title = title;
-        this.description = "";
+        this.description = description;
         this.todo = [];
         this.completed = false;
     }

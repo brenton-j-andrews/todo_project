@@ -2,34 +2,29 @@ import React from "react";
 
 import NewProject from "./NewProject";
 
+import { TaskWrapper, TaskHeader } from "./Styles/TasksPanel.styles";
+
 export const TasksPanel = ({
     projects,
     addProject, 
     addProjectBool,
     selectedProject
-    
 }) => {
-    // console.log("Projects: ", projects);
-    // console.log("Selected Project: ", selectedProject);
 
-    // Return selected project contents.
     if (!addProjectBool) {
         const project = projects.find(project => project.title === selectedProject.title);
-        // console.log("Project: ", project);
+        console.log("Project: ", project);
         if (project) {
             return (
-                <div>
-                    We are rendering tasks from project {project.title}
-                </div>
+                <TaskWrapper>
+                    <TaskHeader>
+                        <h1> Project: {project.title} </h1>
+                        <p> Description: {project.description}</p>   
+                    </TaskHeader>
+                         
+                </TaskWrapper>
             )
-        } else {
-            return (
-                <div>
-                    You have no projects!
-                </div>
-            )
-        }
-        
+        } 
     }
     
     // Return new project form.
