@@ -1,9 +1,8 @@
 // Task object. Stored in project.todo_tasks and project.completed_tasks.
 
 class Task {
-    constructor(title, description) {
+    constructor(title) {
         this.title = title;
-        this.description = this.description;
         this.completed = false;
         }
 
@@ -15,3 +14,5 @@ class Task {
         return this.description;
     }
 }
+
+export default Task;

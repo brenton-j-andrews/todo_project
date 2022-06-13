@@ -33,6 +33,7 @@ const ProjectsPanel = ({
         <Panel>
             
             <TasksList>
+                <TasksButton onClick={() => {previewMode()}}> Show Preview Data </TasksButton>
                 <TasksButton> Show All Tasks </TasksButton>
                 <TasksButton> Today's Tasks </TasksButton>
                 <TasksButton> This Week's Tasks </TasksButton>
@@ -70,7 +71,6 @@ const ProjectsPanel = ({
 
             </ProjectsList>
 
-            <TasksButton onClick={() => {previewMode()}}> Show Preview Data </TasksButton>
         </Panel>
     )
 }

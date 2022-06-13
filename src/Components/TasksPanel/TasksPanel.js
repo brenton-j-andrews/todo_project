@@ -2,7 +2,7 @@ import React from "react";
 
 import NewProject from "./NewProject";
 
-import { TaskWrapper, TaskHeader  } from "./Styles/TasksPanel.styles";
+import { TaskWrapper, TaskHeader, Tasks, Task  } from "./Styles/TasksPanel.styles";
 
 export const TasksPanel = ({
     projects,
@@ -13,17 +13,39 @@ export const TasksPanel = ({
 
     if (!addProjectBool) {
         const project = projects.find(project => project.title === selectedProject.title);
-        console.log("Project: ", project);
+
         if (project) {
             return (
                 <TaskWrapper>
                     
                     <TaskHeader>
                         <h1> {project.title} </h1>
-
-                        
                         <p> {project.description}</p>   
                     </TaskHeader>
+
+                    
+                    <Tasks>
+                    
+                        <h3> Remaining Tasks: </h3>
+
+                        {project.todo.map((task) => {
+                            return (
+                                <Task> <p>{task.title}</p> <button> 🗸 </button> <button> 🗑️ </button>
+
+                                </Task>
+                            )
+                        })}
+                    </Tasks>
+
+                    <Tasks>
+                        <h3> Completed Tasks:  </h3>
+                        {project.completed_tasks.map((task) => {
+                            return (
+                                <Task> <p>{task.title}</p> <button> 🗑️ </button> </Task>
+                            )
+                        })}
+                    </Tasks>
+                    
                          
                 </TaskWrapper>
             )

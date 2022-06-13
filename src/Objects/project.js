@@ -6,6 +6,7 @@ class Project {
         this.title = title;
         this.description = description;
         this.todo = [];
+        this.completed_tasks = [];
         this.completed = false;
     }
 
