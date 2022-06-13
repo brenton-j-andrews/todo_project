@@ -10,7 +10,7 @@ class Project {
     }
 
     addTask(title) {
-        const new_task = new Task("test task", false);
+        const new_task = new Task(title, false);
         this.tasks.push(new_task);
     }
 

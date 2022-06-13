@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { useState} from "react";
 
 import NewProject from "./NewProject";
 
@@ -12,6 +12,16 @@ export const TasksPanel = ({
 }) => {
 
     const [render, setRender] = useState(true);
+    const [addTaskBool, setAddTaskBool] = useState(false);
+
+    // Usestate varibles for adding new task:
+    const [title, setTitle] = useState(null);
+
+    // Form methods.
+    function handleChange(e) {
+        setTitle(e.target.value);
+        
+    }
 
     function reRender() {
         setRender(!render);
@@ -38,10 +48,23 @@ export const TasksPanel = ({
                     <Tasks>
                     
                         <h3> Remaining Tasks: </h3>
-
-                        {/* <button onClick={() => {project.addTask()}}> Add Task </button>  */}
                         
-                        <button onClick={function() { project.addTask(); reRender();}}> Add Task </button> 
+                        <button onClick={function() { setAddTaskBool(true); reRender();}}> Add Task </button> 
+
+                        {addTaskBool &&
+                        <Task>
+                            <form onChange={handleChange}>
+                                <label> Task name <input name="title" type="text"></input></label>
+                                <input 
+                                type="button" 
+                                value="Add Task"
+                                onClick={() => {project.addTask(title); reRender(); setAddTaskBool(false); }}
+                                >
+
+                                </input>
+                            </form>
+                        </Task>
+                        }
 
                         {todo_tasks.map((task) => {
 
@@ -52,8 +75,9 @@ export const TasksPanel = ({
 
                                     <button onClick={function() {project.removeTask(task); reRender(); }}> 🗑️ </button>
                                 </Task>
-                            )
-                        })}
+                            )}
+                        )}
+
                     </Tasks>
 
                     <Tasks>
