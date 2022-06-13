@@ -15,6 +15,10 @@ export const TasksPanel = ({
         const project = projects.find(project => project.title === selectedProject.title);
 
         if (project) {
+
+            const todo_tasks = project.tasks.filter(task => task.completed === false);
+            const completed_tasks = project.tasks.filter(task => task.completed === true);
+
             return (
                 <TaskWrapper>
                     
@@ -28,7 +32,7 @@ export const TasksPanel = ({
                     
                         <h3> Remaining Tasks: </h3>
 
-                        {project.todo.map((task) => {
+                        {todo_tasks.map((task) => {
                             return (
                                 <Task> <p>{task.title}</p> <button> 🗸 </button> <button> 🗑️ </button>
 
@@ -39,7 +43,7 @@ export const TasksPanel = ({
 
                     <Tasks>
                         <h3> Completed Tasks:  </h3>
-                        {project.completed_tasks.map((task) => {
+                        {completed_tasks.map((task) => {
                             return (
                                 <Task> <p>{task.title}</p> <button> 🗑️ </button> </Task>
                             )
