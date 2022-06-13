@@ -4,8 +4,9 @@ export const Panel = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex-shrink: 0;
 
-    width: 300px;  
+    width: 30%;  
     height: 100%;
     background-color: #FD7702;
 `

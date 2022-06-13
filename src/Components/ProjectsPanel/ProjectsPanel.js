@@ -24,7 +24,9 @@ const ProjectsPanel = ({
     removeProject,
 
     setSelectedProject,
-    selectedProject
+    selectedProject,
+
+    previewMode
     }) => {
 
     return (
@@ -67,6 +69,8 @@ const ProjectsPanel = ({
                 })}
 
             </ProjectsList>
+
+            <TasksButton onClick={() => {previewMode()}}> Show Preview Data </TasksButton>
         </Panel>
     )
 }

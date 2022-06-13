@@ -6,16 +6,19 @@ import './Styles/App.css';
 import Header from './Components/General/Header/Header';
 import ProjectsPanel from './Components/ProjectsPanel/ProjectsPanel';
 import { TasksPanel } from './Components/TasksPanel/TasksPanel';
+import { previewData } from './Objects/previewData';
 
 
 const App = () => {
 
+
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
 
-  // If addProject is true, TasksPanel renders the new project form. Otherwise it renders contents from selectedProject.
   const [addProjectBool, setAddProjectBool] = useState(false); 
   const [deleteProjectBool, setDeleteProjectBool] = useState(false);
+
+  const [previewBool, setPreviewBool] = useState(false);
 
 
   // Toggle new project menu.
@@ -45,12 +48,24 @@ const App = () => {
     setDeleteProjectBool(!deleteProjectBool);
   }
 
-
-  
   // Remove project from projects state array.
   const removeProject = (project_object) => {
     setDeleteProjectBool(false);
     setProjects((projects) => projects.filter(project => project !== project_object));
+  }
+
+  // Activate Preview mode with dummy data.
+  const previewMode = () => {
+    if (!previewBool) {
+      setPreviewBool(true);
+      setProjects(previewData);
+      setSelectedProject(previewData[0]);
+    } else {
+      setPreviewBool(false);
+      setProjects([])
+      setSelectedProject(null)
+    }
+    
   }
 
   return (
@@ -71,6 +86,8 @@ const App = () => {
 
         setSelectedProject={setSelectedProject}
         selectedProject={selectedProject}
+
+        previewMode={previewMode}
         />
 
         <TasksPanel 

@@ -2,7 +2,7 @@ import React from "react";
 
 import NewProject from "./NewProject";
 
-import { TaskWrapper, TaskHeader } from "./Styles/TasksPanel.styles";
+import { TaskWrapper, TaskHeader  } from "./Styles/TasksPanel.styles";
 
 export const TasksPanel = ({
     projects,
@@ -17,9 +17,12 @@ export const TasksPanel = ({
         if (project) {
             return (
                 <TaskWrapper>
+                    
                     <TaskHeader>
-                        <h1> Project: {project.title} </h1>
-                        <p> Description: {project.description}</p>   
+                        <h1> {project.title} </h1>
+
+                        
+                        <p> {project.description}</p>   
                     </TaskHeader>
                          
                 </TaskWrapper>
