@@ -7,8 +7,8 @@ class NewProject extends React.Component {
         this.state = {
             title: "",
             description: "",
-            // tasks: [],
-            // completed: false
+            tasks: [],
+            completed: false
         }
         
         this.handleChange = this.handleChange.bind(this);
@@ -24,7 +24,7 @@ class NewProject extends React.Component {
     onSubmit() {
         let title = this.state.title;
         let description = this.state.description;
-        const project_object = new Project(title, description);
+        const project_object = new Project(title, description, [], false);
         this.props.addProject(project_object);
     }
 

@@ -2,7 +2,7 @@ import React, { useState} from "react";
 
 import NewProject from "./NewProject";
 
-import { TaskWrapper, TaskHeader, Tasks, Task  } from "./Styles/TasksPanel.styles";
+import { TaskWrapper, TaskHeader, Tasks, Task, TaskDiv, AddTask  } from "./Styles/TasksPanel.styles";
 
 export const TasksPanel = ({
     projects,
@@ -16,15 +16,33 @@ export const TasksPanel = ({
 
     // Usestate varibles for adding new task:
     const [title, setTitle] = useState(null);
+    const [dueDate, setDueDate] = useState(null);
 
     // Form methods.
     function handleChange(e) {
-        setTitle(e.target.value);
-        
+        if (e.target.name === "title") {
+            setTitle(e.target.value);
+        } else if (e.target.name === "dueDate") {
+            setDueDate(e.target.value);
+            console.log(e.target.value);
+        } 
     }
 
     function reRender() {
         setRender(!render);
+    }
+
+    function addTask(project, title) {
+        if (title === null) {
+            alert("Your task must have a name.");
+            
+        } else {
+            project.addTask(title, dueDate, false); 
+            reRender(); 
+            setTitle(null);
+            setDueDate(null);
+            setAddTaskBool(false);
+        }
     }
     
 
@@ -49,21 +67,25 @@ export const TasksPanel = ({
                     
                         <h3> Remaining Tasks: </h3>
                         
-                        <button onClick={function() { setAddTaskBool(true); reRender();}}> Add Task </button> 
+                        <button onClick={function() { setAddTaskBool(!addTaskBool); reRender();}}> { addTaskBool === true ? "Close Form" : "Add Task" } </button> 
 
                         {addTaskBool &&
-                        <Task>
-                            <form onChange={handleChange}>
-                                <label> Task name <input name="title" type="text"></input></label>
-                                <input 
-                                type="button" 
-                                value="Add Task"
-                                onClick={() => {project.addTask(title); reRender(); setAddTaskBool(false); }}
-                                >
+                           
+                            <AddTask onChange={handleChange}>
 
-                                </input>
-                            </form>
-                        </Task>
+                                
+                                    <label> Task name  
+                                        <input name="title" type="text" required/> 
+                                    </label>
+
+                                    <label > Due Date  
+                                        <input name="dueDate" type="date" /> 
+                                    </label>
+
+                                <input type="button" value="Add Task" onClick={() => {addTask(project, title)}}
+                                />
+                                             
+                            </AddTask>
                         }
 
                         {todo_tasks.map((task) => {
@@ -71,9 +93,15 @@ export const TasksPanel = ({
                             return (
                                 <Task> 
                                     <p>{task.title}</p> 
-                                    <button onClick={function() {task.toggleComplete(); reRender(); }}> 🗸 </button> 
+                                
+                                    <TaskDiv>
+                                        <p> Due  {task.dueDate} </p>
+                                        <button variant="green" onClick={function() {task.toggleComplete(); reRender(); }}> 🗸 </button> 
+                                        <button variant="red" onClick={function() {project.removeTask(task); reRender(); }}> 🗑️ </button>
+                                    </TaskDiv>
+                                    
 
-                                    <button onClick={function() {project.removeTask(task); reRender(); }}> 🗑️ </button>
+                                    
                                 </Task>
                             )}
                         )}
@@ -86,8 +114,10 @@ export const TasksPanel = ({
                             return (
                                 <Task> 
                                     <p>{task.title}</p> 
-                                    <button onClick={function() {task.toggleComplete(); reRender(); }}> ↑ </button>
-                                    <button onClick={function() {project.removeTask(task); reRender(); }}> 🗑️ </button> 
+                                    <TaskDiv>
+                                        <button variant="green" onClick={function() {task.toggleComplete(); reRender(); }}> ↑ </button>
+                                        <button variant="red" onClick={function() {project.removeTask(task); reRender(); }}> 🗑️ </button> 
+                                    </TaskDiv>
                                 </Task>
                             )
                         })}
@@ -109,4 +139,3 @@ export const TasksPanel = ({
         )
     }
 }
-

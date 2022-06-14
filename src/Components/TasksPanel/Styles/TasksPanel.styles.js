@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const TaskWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
     padding: 30px 75px 0px 75px;
 `
@@ -31,18 +31,47 @@ export const Tasks = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
+
+    & button {
+        margin-bottom: 10px;
+    }
 `
 
 export const Task = styled.div`
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     min-width: 100%;
-    margin: 5px;
-    padding: 5px;
+    margin: 5px 0px 5px 0px;
+
     background-color: orange;
 
     & p {
-        margin: 0px;
-        padding: 5px;
+        padding: 0px 20px;
+    }
+`
+
+export const AddTask = styled.form`
+    background-color: orange;
+    display: flex;
+    justify-content: space-between;
+    max-width: 100%;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+
+    & input {
+        margin-left: 5px;
+    }
+
+    & div {
+        display: flex;
+        flex-direction: column;
+    }
+`
+
+export const TaskDiv = styled.div`
+    display: flex;
+
+    & button {
+        margin: 10px 10px;
     }
 `

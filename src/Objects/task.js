@@ -1,8 +1,9 @@
 // Task object. Stored in project.todo_tasks and project.completed_tasks.
 
 class Task {
-    constructor(title, completed) {
+    constructor(title, dueDate, completed) {
         this.title = title;
+        this.dueDate = dueDate;
         this.completed = completed;
         }
 
