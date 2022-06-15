@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 
 // Import components and styles.
@@ -12,14 +12,39 @@ import { previewData } from './Objects/previewData';
 const App = () => {
 
 
+
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
 
   const [addProjectBool, setAddProjectBool] = useState(false); 
   const [deleteProjectBool, setDeleteProjectBool] = useState(false);
 
+  const [useLocalData, setUseLocalData] = useState(true);
   const [previewBool, setPreviewBool] = useState(false);
 
+  // localStorage.clear();
+
+
+  // If local data is in use, update upon modifying projects or tasks.
+  const updateLocalStorage = (project_object) => {
+    let test = localStorage.getItem("projects")
+    console.log("Beginning state: ", test);
+    console.log("Passed object: ", project_object);
+
+    if (!localStorage.getItem("projects")) {
+      console.log("creating item...");
+      localStorage.setItem("projects", "[]");
+    } 
+    
+    console.log("Adding information");
+    const localData = JSON.parse(localStorage.getItem("projects"));
+    localData.push(project_object);
+    console.log(localData);
+    // setProjects(localData);
+    localStorage.setItem("projects", JSON.stringify(localData));
+    
+    console.log("End value: ", localStorage.getItem("projects")); 
+  }
 
   // Toggle new project menu.
   const addProjectToggle = () => {
@@ -34,6 +59,11 @@ const App = () => {
       setProjects(projects.concat(project_object));
     } else {
       alert("Projects must have different names.")
+    }
+
+    // Update local storage if in use.
+    if (useLocalData) {
+      updateLocalStorage(project_object);
     }
   }
 
@@ -52,6 +82,11 @@ const App = () => {
   const removeProject = (project_object) => {
     setDeleteProjectBool(false);
     setProjects((projects) => projects.filter(project => project !== project_object));
+
+    // Update local storage if in use.
+    if (useLocalData) {
+      updateLocalStorage(project_object);
+    }
   }
 
   // Activate Preview mode with dummy data.
@@ -65,7 +100,6 @@ const App = () => {
       setProjects([])
       setSelectedProject(null)
     }
-    
   }
 
   return (
