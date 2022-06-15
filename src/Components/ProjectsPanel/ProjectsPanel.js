@@ -27,7 +27,10 @@ const ProjectsPanel = ({
     selectedProject,
 
     previewMode,
-    previewBool
+    previewBool,
+
+    localStorageMode,
+    useLocalStorage
     }) => {
 
 
@@ -35,7 +38,8 @@ const ProjectsPanel = ({
         <Panel>
             
             <TasksList>
-                <TasksButton onClick={() => {previewMode()}}> {previewBool ? "Hide Sample Data" : "Show Sample Data"} </TasksButton>
+                {/* <TasksButton onClick={() => {previewMode()}}> {previewBool ? "Hide Sample Data" : "Show Sample Data"} </TasksButton> */}
+                <TasksButton onClick={() => {localStorageMode()}}> { useLocalStorage ? "Show LocalStorage Data" : "Hide LocalStorageData"} </TasksButton>
                 <TasksButton> Show All Tasks </TasksButton>
                 <TasksButton> Today's Tasks </TasksButton>
                 <TasksButton> This Week's Tasks </TasksButton>

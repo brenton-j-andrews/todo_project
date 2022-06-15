@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 // Import components and styles.
@@ -11,40 +11,36 @@ import { previewData } from './Objects/previewData';
 
 const App = () => {
 
+  const [useLocalStorage, setUseLocalStorage] = useState(true);
+  const [previewBool, setPreviewBool] = useState(false);
 
+  // Set projects state according to active data source (sample data, local storage data or firestore )
+  const setDataSource = () => {
 
-  const [projects, setProjects] = useState([]);
+    if (useLocalStorage) {
+      if (!localStorage.getItem("projects")) {
+        localStorage.setItem("projects", "[]");
+      }
+
+      console.log(JSON.parse(localStorage.getItem("projects")));
+      return JSON.parse(localStorage.getItem("projects"));
+    }
+  }
+
+  const [projects, setProjects] = useState(setDataSource());
   const [selectedProject, setSelectedProject] = useState(null);
 
   const [addProjectBool, setAddProjectBool] = useState(false); 
   const [deleteProjectBool, setDeleteProjectBool] = useState(false);
 
-  const [useLocalData, setUseLocalData] = useState(true);
-  const [previewBool, setPreviewBool] = useState(false);
-
-  // localStorage.clear();
-
-
-  // If local data is in use, update upon modifying projects or tasks.
-  const updateLocalStorage = (project_object) => {
-    let test = localStorage.getItem("projects")
-    console.log("Beginning state: ", test);
-    console.log("Passed object: ", project_object);
-
-    if (!localStorage.getItem("projects")) {
-      console.log("creating item...");
-      localStorage.setItem("projects", "[]");
-    } 
-    
-    console.log("Adding information");
-    const localData = JSON.parse(localStorage.getItem("projects"));
-    localData.push(project_object);
-    console.log(localData);
-    // setProjects(localData);
-    localStorage.setItem("projects", JSON.stringify(localData));
-    
-    console.log("End value: ", localStorage.getItem("projects")); 
-  }
+  // Upon projects change, update localStorage if active.
+  useEffect(() => {
+    if (useLocalStorage) {
+      console.log("projects as a string: ", localStorage.getItem("projects", JSON.stringify(projects)));
+      localStorage.setItem("projects", JSON.stringify(projects));
+      console.log("local storage: ", localStorage.getItem("projects"));
+    }
+  }, [projects]);
 
   // Toggle new project menu.
   const addProjectToggle = () => {
@@ -59,11 +55,6 @@ const App = () => {
       setProjects(projects.concat(project_object));
     } else {
       alert("Projects must have different names.")
-    }
-
-    // Update local storage if in use.
-    if (useLocalData) {
-      updateLocalStorage(project_object);
     }
   }
 
@@ -82,11 +73,6 @@ const App = () => {
   const removeProject = (project_object) => {
     setDeleteProjectBool(false);
     setProjects((projects) => projects.filter(project => project !== project_object));
-
-    // Update local storage if in use.
-    if (useLocalData) {
-      updateLocalStorage(project_object);
-    }
   }
 
   // Activate Preview mode with dummy data.
@@ -102,6 +88,7 @@ const App = () => {
     }
   }
 
+  
   return (
     <div className="App">
       <header className="App-header">
@@ -123,10 +110,13 @@ const App = () => {
 
         previewMode={previewMode}
         previewBool={previewBool}
+
+        useLocalStorage={useLocalStorage}
         />
 
         <TasksPanel 
         projects={projects}
+        setProjects={setProjects}
         addProject={addProject} 
         addProjectBool={addProjectBool} 
         selectedProject={selectedProject}
@@ -139,3 +129,25 @@ const App = () => {
 }
 
 export default App;
+
+
+  // // If local data is in use, update upon modifying projects or tasks.
+  // const updateLocalStorage = (project_object) => {
+  //   let test = localStorage.getItem("projects")
+  //   console.log("Beginning state: ", test);
+  //   console.log("Passed object: ", project_object);
+
+  //   if (!localStorage.getItem("projects")) {
+  //     console.log("creating item...");
+  //     localStorage.setItem("projects", "[]");
+  //   } 
+    
+  //   console.log("Adding information");
+  //   const localData = JSON.parse(localStorage.getItem("projects"));
+  //   localData.push(project_object);
+  //   console.log(localData);
+  //   // setProjects(localData);
+  //   localStorage.setItem("projects", JSON.stringify(localData));
+    
+  //   console.log("End value: ", localStorage.getItem("projects")); 
+  // }

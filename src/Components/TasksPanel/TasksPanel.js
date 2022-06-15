@@ -6,6 +6,7 @@ import { TaskWrapper, TaskHeader, Tasks, Task, TaskDiv, AddTask  } from "./Style
 
 export const TasksPanel = ({
     projects,
+    setProjects,
     addProject, 
     addProjectBool,
     selectedProject
@@ -33,6 +34,7 @@ export const TasksPanel = ({
     }
 
     function addTask(project, title) {
+        console.log(project);
         if (title === null) {
             alert("Your task must have a name.");
             
@@ -47,85 +49,87 @@ export const TasksPanel = ({
     
 
     if (!addProjectBool) {
-        const project = projects.find(project => project.title === selectedProject.title);
+        if (selectedProject) {
+            const project = projects.find(project => project.title === selectedProject.title);
 
-        if (project) {
+            if (project) {
 
-            const todo_tasks = project.tasks.filter(task => task.completed === false);
-            const completed_tasks = project.tasks.filter(task => task.completed === true);
+                const todo_tasks = project.tasks.filter(task => task.completed === false);
+                const completed_tasks = project.tasks.filter(task => task.completed === true);
 
-            return (
-                <TaskWrapper>
-                    
-                    <TaskHeader>
-                        <h1> {project.title} </h1>
-                        <p> {project.description}</p>   
-                    </TaskHeader>
-
-                    
-                    <Tasks>
-                    
-                        <h3> Remaining Tasks: </h3>
+                return (
+                    <TaskWrapper>
                         
-                        <button onClick={function() { setAddTaskBool(!addTaskBool); reRender();}}> { addTaskBool === true ? "Close Form" : "Add Task" } </button> 
+                        <TaskHeader>
+                            <h1> {project.title} </h1>
+                            <p> {project.description}</p>   
+                        </TaskHeader>
 
-                        {addTaskBool &&
-                           
-                            <AddTask onChange={handleChange}>
+                        
+                        <Tasks>
+                        
+                            <h3> Remaining Tasks: </h3>
+                            
+                            <button onClick={function() { setAddTaskBool(!addTaskBool); reRender();}}> { addTaskBool === true ? "Close Form" : "Add Task" } </button> 
 
-                                
-                                    <label> Task name  
-                                        <input name="title" type="text" required/> 
-                                    </label>
-
-                                    <label > Due Date  
-                                        <input name="dueDate" type="date" /> 
-                                    </label>
-
-                                <input type="button" value="Add Task" onClick={() => {addTask(project, title)}}
-                                />
-                                             
-                            </AddTask>
-                        }
-
-                        {todo_tasks.map((task) => {
-
-                            return (
-                                <Task> 
-                                    <p>{task.title}</p> 
-                                
-                                    <TaskDiv>
-                                        <p> Due  {task.dueDate} </p>
-                                        <button variant="green" onClick={function() {task.toggleComplete(); reRender(); }}> 🗸 </button> 
-                                        <button variant="red" onClick={function() {project.removeTask(task); reRender(); }}> 🗑️ </button>
-                                    </TaskDiv>
-                                    
+                            {addTaskBool &&
+                            
+                                <AddTask onChange={handleChange}>
 
                                     
-                                </Task>
+                                        <label> Task name  
+                                            <input name="title" type="text" required/> 
+                                        </label>
+
+                                        <label > Due Date  
+                                            <input name="dueDate" type="date" /> 
+                                        </label>
+
+                                    <input type="button" value="Add Task" onClick={() => {addTask(project, title); setProjects(projects); }}
+                                    />
+                                                
+                                </AddTask>
+                            }
+
+                            {todo_tasks.map((task) => {
+
+                                return (
+                                    <Task> 
+                                        <p>{task.title}</p> 
+                                    
+                                        <TaskDiv>
+                                            <p> Due  {task.dueDate} </p>
+                                            <button variant="green" onClick={function() {task.toggleComplete(); reRender(); }}> 🗸 </button> 
+                                            <button variant="red" onClick={function() {project.removeTask(task); reRender(); }}> 🗑️ </button>
+                                        </TaskDiv>
+                                        
+
+                                        
+                                    </Task>
+                                )}
                             )}
-                        )}
 
-                    </Tasks>
+                        </Tasks>
 
-                    <Tasks>
-                        <h3> Completed Tasks:  </h3>
-                        {completed_tasks.map((task) => {
-                            return (
-                                <Task> 
-                                    <p>{task.title}</p> 
-                                    <TaskDiv>
-                                        <button variant="green" onClick={function() {task.toggleComplete(); reRender(); }}> ↑ </button>
-                                        <button variant="red" onClick={function() {project.removeTask(task); reRender(); }}> 🗑️ </button> 
-                                    </TaskDiv>
-                                </Task>
-                            )
-                        })}
-                    </Tasks>
-                    
-                         
-                </TaskWrapper>
-            )
+                        <Tasks>
+                            <h3> Completed Tasks:  </h3>
+                            {completed_tasks.map((task) => {
+                                return (
+                                    <Task> 
+                                        <p>{task.title}</p> 
+                                        <TaskDiv>
+                                            <button variant="green" onClick={function() {task.toggleComplete(); reRender(); }}> ↑ </button>
+                                            <button variant="red" onClick={function() {project.removeTask(task); reRender(); }}> 🗑️ </button> 
+                                        </TaskDiv>
+                                    </Task>
+                                )
+                            })}
+                        </Tasks>
+                        
+                            
+                    </TaskWrapper>
+                )
+            }
         } 
     }
     

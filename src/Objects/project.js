@@ -9,8 +9,8 @@ class Project {
         this.completed = completed;
     }
 
-    addTask(title) {
-        const new_task = new Task(title, false);
+    addTask(title, dueDate) {
+        const new_task = new Task(title, dueDate, false);
         this.tasks.push(new_task);
     }
 
