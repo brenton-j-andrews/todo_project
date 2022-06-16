@@ -9,7 +9,8 @@ export const TasksPanel = ({
     setProjects,
     addProject, 
     addProjectBool,
-    selectedProject
+    selectedProject,
+    addTaskToStorage
 }) => {
 
     const [render, setRender] = useState(true);
@@ -34,12 +35,12 @@ export const TasksPanel = ({
     }
 
     function addTask(project, title) {
-        console.log(project);
         if (title === null) {
             alert("Your task must have a name.");
             
         } else {
             project.addTask(title, dueDate, false); 
+            addTaskToStorage(project);
             reRender(); 
             setTitle(null);
             setDueDate(null);

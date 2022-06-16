@@ -1,5 +1,6 @@
 // Local storage object.
 import Project from "./project";
+import Task from "./task";
 
 class Storage {
     constructor() {
@@ -23,6 +24,14 @@ class Storage {
         localStorage.setItem("projects", JSON.stringify(data_arr));
     }
 
+    // Add task to project in localstorage.
+    addTaskToStorage(project) {
+        const data_arr = JSON.parse(localStorage.getItem("projects"));
+        let project_index = data_arr.findIndex( item => item.title === project.title);
+        data_arr[project_index] = project;
+        localStorage.setItem("projects", JSON.stringify(data_arr));
+    }
+
     // Delete project from localstorage.
     removeProject(item) {
         let data_arr = JSON.parse(localStorage.getItem("projects")).filter(project => {
@@ -34,13 +43,17 @@ class Storage {
     // Convert localstorage string to usable input for projects state.
     convertLocalStorage() {
         this.initLocalStorage();
-        const storage_arr = JSON.parse(localStorage.getItem("projects"));
         const data_arr = [];
 
-        storage_arr.forEach(createProject);
+        JSON.parse(localStorage.getItem("projects")).forEach(createProject);
 
         function createProject(item) {
-            data_arr.push(new Project(item.title, item.description, item.tasks, item.completed))
+            let tasks = createTasks(item.tasks);
+            data_arr.push(new Project(item.title, item.description, tasks, item.completed));
+        }
+
+        function createTasks(tasks) {
+            return tasks.map((task) => new Task(task.title, task.dueDate, task.completed));
         }
 
         return data_arr;

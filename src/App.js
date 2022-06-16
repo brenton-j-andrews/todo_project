@@ -14,8 +14,6 @@ const App = () => {
 
   let storageObject = new Storage();
 
-  // storageObject.clearLocalStorage();
-
   const [previewBool, setPreviewBool] = useState(false);
 
   const [projects, setProjects] = useState(storageObject.prepared_input);
@@ -105,9 +103,13 @@ const App = () => {
         <TasksPanel 
         projects={projects}
         setProjects={setProjects}
+
         addProject={addProject} 
         addProjectBool={addProjectBool} 
+
         selectedProject={selectedProject}
+
+        addTaskToStorage={storageObject.addTaskToStorage}
         />
 
       </div>
