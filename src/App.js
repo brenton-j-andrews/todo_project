@@ -13,12 +13,12 @@ import Storage from "./Objects/storage";
 const App = () => {
 
   let storageObject = new Storage();
-  storageObject.initLocalStorage();
+
   // storageObject.clearLocalStorage();
 
   const [previewBool, setPreviewBool] = useState(false);
 
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState(storageObject.prepared_input);
   const [selectedProject, setSelectedProject] = useState(null);
 
   const [addProjectBool, setAddProjectBool] = useState(false); 
@@ -32,6 +32,7 @@ const App = () => {
       setProjects(previewData);
       setSelectedProject(previewData[0]);
     } else {
+      setProjects(storageObject.prepared_input);
       setPreviewBool(false);
       setSelectedProject(null)
     }
@@ -48,7 +49,10 @@ const App = () => {
       setSelectedProject(project_object);
       addProjectToggle();
       setProjects(projects.concat(project_object));
-      storageObject.addProject(project_object);
+      if (!previewBool) {
+        storageObject.addProject(project_object);
+      }
+
     } 
     
     else {
@@ -70,6 +74,7 @@ const App = () => {
   // Remove project from projects state array.
   const removeProject = (project_object) => {
     setDeleteProjectBool(false);
+    storageObject.removeProject(project_object);
     setProjects((projects) => projects.filter(project => project !== project_object));
   }
 
