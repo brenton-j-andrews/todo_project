@@ -110,6 +110,7 @@ const App = () => {
         selectedProject={selectedProject}
 
         addTaskToStorage={storageObject.addTaskToStorage}
+        removeTaskFromStorage={storageObject.removeTaskFromStorage}
         />
 
       </div>

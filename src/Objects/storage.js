@@ -24,11 +24,22 @@ class Storage {
         localStorage.setItem("projects", JSON.stringify(data_arr));
     }
 
-    // Add task to project in localstorage.
+    // Add / updates tasks in localstorage.
     addTaskToStorage(project) {
         const data_arr = JSON.parse(localStorage.getItem("projects"));
         let project_index = data_arr.findIndex( item => item.title === project.title);
         data_arr[project_index] = project;
+        localStorage.setItem("projects", JSON.stringify(data_arr));
+    }
+
+    removeTaskFromStorage(project, task) {
+        let data_arr = JSON.parse(localStorage.getItem("projects"));
+        let project_index = data_arr.findIndex( item => item.title === project.title);
+
+        let new_tasks = project.tasks.filter(function(item) {
+            return item.title !== task.title;
+        })
+        data_arr[project_index].tasks = new_tasks;
         localStorage.setItem("projects", JSON.stringify(data_arr));
     }
 

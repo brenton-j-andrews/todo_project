@@ -10,7 +10,8 @@ export const TasksPanel = ({
     addProject, 
     addProjectBool,
     selectedProject,
-    addTaskToStorage
+    addTaskToStorage,
+    removeTaskFromStorage
 }) => {
 
     const [render, setRender] = useState(true);
@@ -100,8 +101,8 @@ export const TasksPanel = ({
                                     
                                         <TaskDiv>
                                             <p> Due  {task.dueDate} </p>
-                                            <button variant="green" onClick={function() {task.toggleComplete(); reRender(); }}> 🗸 </button> 
-                                            <button variant="red" onClick={function() {project.removeTask(task); reRender(); }}> 🗑️ </button>
+                                            <button variant="green" onClick={function() {task.toggleComplete(); addTaskToStorage(project); reRender(); }}> 🗸 </button> 
+                                            <button variant="red" onClick={function() {project.removeTask(task); removeTaskFromStorage(project, task); reRender(); }}> 🗑️ </button>
                                         </TaskDiv>
                                         
 
@@ -119,8 +120,8 @@ export const TasksPanel = ({
                                     <Task> 
                                         <p>{task.title}</p> 
                                         <TaskDiv>
-                                            <button variant="green" onClick={function() {task.toggleComplete(); reRender(); }}> ↑ </button>
-                                            <button variant="red" onClick={function() {project.removeTask(task); reRender(); }}> 🗑️ </button> 
+                                            <button variant="green" onClick={function() {task.toggleComplete(); addTaskToStorage(project); reRender(); }}> ↑ </button>
+                                            <button variant="red" onClick={function() {project.removeTask(task); removeTaskFromStorage(project, task); reRender(); }}> 🗑️ </button> 
                                         </TaskDiv>
                                     </Task>
                                 )
