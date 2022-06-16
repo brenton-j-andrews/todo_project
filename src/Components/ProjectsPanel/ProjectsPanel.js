@@ -37,9 +37,6 @@ const ProjectsPanel = ({
             
             <TasksList>
                 <TasksButton onClick={() => {previewMode()}}> {previewBool ? "Show Local Storage Data" : "Show Sample Data"} </TasksButton>
-                <TasksButton> Show All Tasks </TasksButton>
-                <TasksButton> Today's Tasks </TasksButton>
-                <TasksButton> This Week's Tasks </TasksButton>
             </TasksList>
 
             <ProjectsList>

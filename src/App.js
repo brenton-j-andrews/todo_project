@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 // Import components and styles.
 import './Styles/App.css';
 import Header from './Components/General/Header/Header';
+import Footer from './Components/General/Footer/Footer';
 import ProjectsPanel from './Components/ProjectsPanel/ProjectsPanel';
 import { TasksPanel } from './Components/TasksPanel/TasksPanel';
 import { previewData } from './Objects/previewData';
@@ -115,6 +116,7 @@ const App = () => {
 
       </div>
 
+      <Footer />
     </div>
   );
 }
