@@ -29,8 +29,6 @@ const ProjectsPanel = ({
     previewMode,
     previewBool,
 
-    localStorageMode,
-    useLocalStorage
     }) => {
 
 
@@ -38,8 +36,7 @@ const ProjectsPanel = ({
         <Panel>
             
             <TasksList>
-                {/* <TasksButton onClick={() => {previewMode()}}> {previewBool ? "Hide Sample Data" : "Show Sample Data"} </TasksButton> */}
-                <TasksButton onClick={() => {localStorageMode()}}> { useLocalStorage ? "Show LocalStorage Data" : "Hide LocalStorageData"} </TasksButton>
+                <TasksButton onClick={() => {previewMode()}}> {previewBool ? "Hide Sample Data" : "Show Sample Data"} </TasksButton>
                 <TasksButton> Show All Tasks </TasksButton>
                 <TasksButton> Today's Tasks </TasksButton>
                 <TasksButton> This Week's Tasks </TasksButton>
@@ -53,7 +50,8 @@ const ProjectsPanel = ({
                     <EditButton onClick={deleteProjectToggle}> <Icon src={trash} alt="delete"></Icon> </EditButton> 
                 </EditButtons>
                 
-                {projects.map((project) => {
+                
+                {projects && projects.map((project) => {
                     if (project === selectedProject) {
                         return (
                             <SelectedProjectButton onClick={ () => {deleteProjectBool ? removeProject(project) : setSelectedProject(project)}}
@@ -82,5 +80,3 @@ const ProjectsPanel = ({
 }
 
 export default ProjectsPanel;
-
-// () => {setSelectedProjectIndex(project.index)}} 
